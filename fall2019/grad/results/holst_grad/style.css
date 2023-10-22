@@ -1,0 +1,30 @@
+html, body {	
+}
+canvas {
+  display: block;
+}
+
+input[type="range"]{
+    -webkit-appearance: none;
+    -moz-apperance: none;
+    border-radius: 6px;
+    height: 15px;
+    width: 150px;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        color-stop(0, #000000),
+        color-stop(1, #FFFFFF)
+      
+    );
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background-color: #FFA500;
+    border-radius: 20px;
+    height: 30px;
+    width: 15px;
+    background-image: -webkit-radial-gradient(white, black)
+}
