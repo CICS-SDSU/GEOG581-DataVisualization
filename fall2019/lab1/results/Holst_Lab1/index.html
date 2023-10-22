@@ -1,0 +1,54 @@
+<!DOCTYPE html><html><head>
+    <script src="p5.js"></script>
+    <script src="p5.dom.min.js"></script>
+    <script src="p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+    <style>
+		body{
+			background: url("maru.png");
+            background-repeat: no-repeat;
+            background-size: 1200px 800px;
+            height: 800px;
+            width: 1200px;
+		}
+		#paused{
+			color: white;
+			position: absolute;
+			top: 765px;
+			left: 400px;
+			z-index: 1;
+			font-family: Georgia,Times,Times New Roman,serif;
+			font-style: italic;
+			font-size: 25px;
+		}
+		#date{
+			color: white;
+			position: absolute;
+			top: 725px;
+			left: 1045px;
+			z-index: 1;
+			font-family: Georgia,Times,Times New Roman,serif;
+			font-style: italic;
+			font-size: 30px;
+        }
+        #time{
+            color: white;
+			position: absolute;
+			top: 765px;
+			left: 1070px;
+			z-index: 1;
+			font-family: Georgia,Times,Times New Roman,serif;
+			font-style: italic;
+			font-size: 25px;
+        }
+	</style>
+</head>
+  <body>
+    <div id="time"></div>
+    <div id="date"></div>
+    <div id="paused"></div>
+    <script src="sketch.js"></script>
+  
+
+</body></html>

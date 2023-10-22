@@ -1,0 +1,36 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+
+/* Position two canvases */
+/* Use top half for balls */
+#c1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 10px solid #FFFF00;
+}
+
+
+/* plots are in the bottom hald of the screen */
+#c2 {
+    /* move both sketchs to the middle of the page */
+    position: absolute;
+    top: 400px;
+    left: 0;
+}
+
+
+/* plots are in the bottom hald of the screen */
+#param_pos {
+    /* move both sketchs to the middle of the page */
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 10px solid #00FFFF;
+
+}
