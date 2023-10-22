@@ -1,0 +1,60 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+canvas {
+  display: block;
+  width: 100%;
+}
+
+button {
+/*   background-color: rgb(255, 131, 0); */
+  background-image: -webkit-radial-gradient(white, #04403E);
+  opacity: 0.9;
+/*   //size: 20; */
+  font-family: georgia;
+  border: white;
+  color: black;
+  padding: 10px 0px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  -mis-transform: skewX(-35deg);
+  -webkit-transform: skewX(-35deg);
+  transform: skewX(-25deg);
+/*   border-radius: 100px; */
+  font: bold;
+}
+
+button:hover {
+  opacity: 1;
+  background-image: -webkit-radial-gradient(black, #056663);
+  color: white;
+  padding: 15px 5px;
+  border-radius: 3px;
+}
+
+
+input[type="range"]{
+    -webkit-appearance: none;
+    -moz-apperance: none;
+    border-radius: 6px;
+    height: 10px;
+    width: 150px;
+  background-image: -webkit-radial-gradient(orange, black);
+}
+
+input[type='range']::-webkit-slider-thumb {
+  background-image: -webkit-radial-gradient(orange, black);
+    -webkit-appearance: none !important;
+    background-color: #FFA500;
+    border-radius: 10px;
+    height: 30px;
+    width: 7px;
+}
+
+#my-div > lol {
+    background-image: -webkit-radial-gradient(white, black)
+}
