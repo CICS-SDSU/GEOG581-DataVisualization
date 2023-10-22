@@ -1,0 +1,124 @@
+<!DOCTYPE html><html><head>
+
+  <script src="p5.js"></script>
+  <script src="p5.dom.min.js"></script>
+  <script src="p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
+
+  <script src="leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+  <meta charset="utf-8">
+  <style>
+    #mapid {
+      height: 780px;
+    }
+
+    /* Button Styles */
+    }
+
+    div.button input,
+    div.button span {}
+
+    .button {
+      position: absolute;
+      top: 825px;
+      left: 50px;
+      background-color: #748787;
+      text-align: center;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 10px;
+      font-size: 22px;
+      -webkit-transition-duration: 0.3s;
+      trasition-duration: 0.3s;
+    }
+
+    .button:hover {
+      background-color: #63ad65;
+      color: black;
+      cursor: pointer;
+    }
+
+    /* Text input Styles       */
+    input[type=text] {
+      position: absolute;
+      top: 830px;
+      left: 280px;
+      height: 35px;
+      font-size: 22px;
+      border-radius: 4px;
+    }
+
+    input[type=text]:focus {
+      border: 3px solid #63ad65;
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <p>
+    <!--       Lattitude: <input id="lat" value="34"/>
+      Longitude: <input id="long" value="-116"/>  -->
+    <input type="text" id="city" placeholder="Enter a City...">
+    <input type="button" class="button" value="Climb Near Here!" onclick="getCity(); getWeather();">
+  </p>
+  <div id="mapid"></div>
+
+  <!--   <div id="base"></div> -->
+  <script>
+    const mymap = L.map('mapid').setView([39.8283, -98.5795], 4);
+    const tileUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}'
+    const tiles = L.tileLayer(tileUrl, {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox.outdoors',
+      accessToken: 'pk.eyJ1Ijoia3NoZW5uYW4iLCJhIjoiY2syZG1vZzY4MDBjZzNvbDZtZDk0cm93YiJ9.-dKlW2RGVIoPcftzQBh2ZQ'
+    }).addTo(mymap);
+    
+   var pinIcon = L.icon({
+      iconUrl: 'marker.png',
+      iconSize: [50, 50],
+      iconAnchor: [25, 49],
+      popupAnchor: [0, -38]
+    });
+    
+    async function getCity() {
+      //getting city from user input and then zooming to that location
+      input = select('#city')
+      const mq_url = 'https://www.mapquestapi.com/geocoding/v1/address?key=lIQYxnf8rAKhVFcSpwADiTWEmSHzArEX&location=' + input.value();
+      const response = await fetch(mq_url);
+      const data = await response.json();
+      var lat = data.results[0].locations[0].latLng.lat;
+      var lng = data.results[0].locations[0].latLng.lng;
+      mymap.flyTo([lat, lng], 10);
+
+      //mountain project route API
+
+      const mp_url = 'https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=' + lat + '&lon=' + lng + '&maxDistance=25&minDiff=5.6&maxDiff=5.12&key=111661456-6a342ace693f4e96e3e70b9ad1d1bd1b';
+      const response2 = await fetch(mp_url);
+      const data2 = await response2.json();
+      // console.log(data2);
+      if (data2.routes.length < 1) {
+        console.log("no climbs");
+        var marker = L.marker([lat, lng]).addTo(mymap);
+        marker.bindPopup('<b>No Climbs! <br>Lets try somewhere else...</b>').openPopup();
+      } else {
+        //loop for getting route location and then creating markers
+        for (let i = 0; i < data2.routes.length; i++) {
+          latt = data2.routes[i].latitude;
+          lngg = data2.routes[i].longitude;
+          var marker = L.marker([latt, lngg], {icon: pinIcon}).addTo(mymap);
+          marker.bindPopup('<b>Name: </b>' + data2.routes[i].name + '<br><b> Type: </b>' + data2.routes[i].type + '<br><b> Rated: </b>' + data2.routes[i].rating);
+        }
+      }
+    }
+  </script>
+  <script src="sketch.js"></script>
+
+
+
+</body></html>
